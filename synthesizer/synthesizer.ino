@@ -30,11 +30,15 @@ THIS DOC BE DEPRECATED
  */
 
 int sensorPin = A0;    // select the input pin for the potentiometer
+int scalePot = A2;
 int ledPin = 12;      // select the pin for the LED
+int reallyTheLedPin = 13;
 int buttonPin = 2;
 int sensorValue = 0;  // variable to store the value coming from the sensor
 float currentHertz = 261.63;
-float tones[9] = {
+
+float scales[3][9] = {
+  {  
   146.83,
   174.61,
   196.0,
@@ -43,7 +47,30 @@ float tones[9] = {
   293.66,
   349.23,
   392.0,
-  440.0};
+  440.0},
+  {
+  164.81,
+  196.0,
+  220.0,
+  246.94,
+  293.66,
+  329.63,
+  392.0,
+  440.0,
+  493.88},
+  {
+  200.0,
+  300.0,
+  400.0,
+  500.0,
+  600.0,
+  700.0,
+  750.0,
+  800.0,
+  900.0}};
+  
+
+
 float potNormalized = 0.0;
 int potMax = 0.0;
 
@@ -65,16 +92,22 @@ void loop() {
     return;
   }
   
+  int scalePotValue = analogRead(scalePot);
+  
+  float scalePotNormalized = scalePotValue / 1019.0;
+  
+  int scaleIndex = (int)round(scalePotNormalized * 2);
+  
   // read the value from the sensor:
   sensorValue = analogRead(sensorPin);
   
-  potNormalized = (sensorValue - 62.0) / (1019.0 - 62.0);
+  potNormalized = (sensorValue) / (1019.0  );
   
   int toneIndex = (int)round(potNormalized * 9);
   
   Serial.println(toneIndex);
  
-  currentHertz = tones[toneIndex];
+  currentHertz = scales[scaleIndex][toneIndex];
     
   // turn the ledPin on
   digitalWrite(ledPin, HIGH);
