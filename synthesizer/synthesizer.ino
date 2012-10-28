@@ -1,4 +1,6 @@
 /*
+
+THIS DOC BE DEPRECATED
   Analog Input
  Demonstrates analog input by reading an analog sensor on analog pin 0 and
  turning on and off a light emitting diode(LED)  connected to digital pin 13. 
@@ -28,7 +30,7 @@
  */
 
 int sensorPin = A0;    // select the input pin for the potentiometer
-int ledPin = 13;      // select the pin for the LED
+int ledPin = 12;      // select the pin for the LED
 int buttonPin = 2;
 int sensorValue = 0;  // variable to store the value coming from the sensor
 float currentHertz = 261.63;
